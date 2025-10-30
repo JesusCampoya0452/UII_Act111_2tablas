@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ producto.nombre }} | Inventario{% endblock %}
+
+{% block contenido %}
+<article class="product-detail">
+    <div class="product-banner">
+        {% if producto.imagen_producto %}
+            <img src="{{ producto.imagen_producto.url }}" alt="Imagen de {{ producto.nombre }}" class="detail-photo">
+        {% else %}
+            <div class="detail-placeholder">🖼️</div>
+        {% endif %}
+        <div class="product-info">
+            <h1>{{ producto.nombre }}</h1>
+            <h3>Precio: ${{ producto.precio|floatformat:2 }} por {{ producto.unidad_medida }}</h3>
+            {% if producto.fecha_vencimiento %}
+                <p><strong>Fecha de Vencimiento:</strong> {{ producto.fecha_vencimiento|date:"d M Y" }}</p>
+            {% else %}
+                <p><strong>Fecha de Vencimiento:</strong> No especificada</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'app_inventario:editar_producto' producto.ID_prd %}" class="btn btn-secondary">✏️ Editar</a>
+        <a href="{% url 'app_inventario:borrar_producto' producto.ID_prd %}" class="btn btn-danger">🗑️ Borrar</a>
+    </div>
+
+    <section class="suppliers-section">
+        <h2>Proveedores</h2>
+        {% if producto.proveedores.all %}
+        <ul class="supplier-list">
+            {% for proveedor in producto.proveedores.all %}
+            <li>
+                <strong>{{ proveedor.nombre }}</strong>
+                {% if proveedor.telefono %} - Tel: {{ proveedor.telefono }}{% endif %}
+                {% if proveedor.domicilio %} - Dom: {{ proveedor.domicilio }}{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty-message">Este producto no tiene proveedores registrados.</p>
+        {% endif %}
+    </section>
+</article>
+{% endblock %}

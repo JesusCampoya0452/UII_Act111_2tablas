@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>encuesta_universidadesAJLJ.html.</title>
+</head>
+<body>
+	<h1>encuesta_universidadesAJLJ.html.</h1>
+
+	<ol>
+		<li>Lee las opciones de universidades</li>
+		<li>Llena tus datos en el formulario</li>
+		<li>Selecciona tus universidades preferidas</li>
+		<li>Haz clic en “Enviar” para ver tus resultados</li>
+	</ol>
+	<form id="formulario">
+		<h2>Datos del Participante</h2>
+		<label>Nombre:</label><br>
+		<input type="text" id="nombre" required><br><br>
+		<label>Apellidos:</label><br>
+		<input type="text" id="apellidos" required><br><br>
+		<label>Correo:</label><br>
+		<input type="email" id="correo" required><br><br>
+	  
+		<h2>Universidades que te pueden interesar</h2>
+		<table border="1" cellpadding="8">
+			<tr>
+				<th>Universidades de Mexico</th>
+				<th>Universidades del Mundo</th>
+			</tr>
+			<tr>
+				<td>INSTITUTO POLITECNICO NACIONAL</td>
+				<td>Universidad de Oxford</td>
+			</tr>
+			<tr>
+				<td>Tecnológico de Monterrey</td>
+				<td>Corpus Christi College</td>
+			</tr>
+			<tr>
+				<td>Universidad Nacional Autonoma de Mexico</td>
+				<td>Cambridge University</td>
+			</tr>
+			<tr>
+				<td>Universidad Tecnologica de Ciudad Juarez</td>
+				<td>Universidad de Yale</td>
+			</tr>
+			<tr>
+				<td>Universidad Autonoma de Ciudad Juarez</td>
+				<td>Universidad de Stanford</td>
+			</tr>
+		</table>
+
+		<h3>Universidades de Mexico</h3>
+		<select id="mexico" required>
+			<option value="">Elegir</option>
+			<option>INSTITUTO POLITECNICO NACIONAL</option>
+			<option>Tecnologico de Monterrey</option>
+			<option>Universidad Nacional Autonoma de Mexico</option>
+			<option>Tecnologico Tecnologica de Ciudad Juarez</option>
+			<option>Universidad Autonoma de Ciudad Juarez</option>
+		</select><br><br>
+
+		<h3>Universidades del Mundo</h3>
+		<select id="mundo" required>
+			<option value="">Elegir</option>
+			<option>Universidad de Oxford</option>
+			<option>Corpus Christi College</option>
+			<option>Cambridge University</option>
+			<option>Universidad de Yale</option>
+			<option>Universidad Stanford</option>
+		</select><br><br>
+
+		<input type="submit" value="Enviar">
+	</form>
+
+	<div id="resultado"></div>
+	<script>
+		const form = document.getElementById("formulario");
+		const resultado = document.getElementById("resultado");
+
+		form.addEventListener("submit", function(e) {
+			e.preventDefault();
+			const nombre = document.getElementById("nombre").value;
+			const apellidos = document.getElementById("apellidos").value;
+			const correo = document.getElementById("correo").value;
+			const mexico = document.getElementById("mexico").value;
+			const mundo = document.getElementById("mundo").value;
+
+			resultado.innerHTML = `
+<h3>Resultados de la Encuesta</h3>
+<p><b>Nombre:</b> ${nombre}</p>
+<p><b>Apellido:</b> ${apellidos}</p>
+<p><b>Correo:</b> ${correo}</p>
+<p><b>Universidad de Mexico:</b> ${mexico}</p>
+<p><b>Universidad del Mundo:</b> ${mundo}</p>
+`;
+		});
+	</script>
+
+</body>
+</html>  

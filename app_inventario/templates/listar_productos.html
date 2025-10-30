@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block titulo %}Productos | Inventario{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Productos Registrados</h2>
+    <a href="{% url 'app_inventario:crear_producto' %}" class="btn btn-primary">+ Agregar Producto</a>
+</div>
+
+<ul class="product-grid">
+    {% for producto in productos %}
+    <li class="product-card">
+        <a href="{% url 'app_inventario:detalle_producto' producto.ID_prd %}">
+            {% if producto.imagen_producto %}
+                <img src="{{ producto.imagen_producto.url }}" alt="Imagen de {{ producto.nombre }}" class="product-img">
+            {% else %}
+                <div class="product-placeholder">📦</div>
+            {% endif %}
+            <h3>{{ producto.nombre }}</h3>
+            <p class="product-price">{{ producto.precio|floatformat:2 }} {{ producto.unidad_medida }}</p>
+            {% if producto.fecha_vencimiento %}
+                <p class="product-expiry">Vence: {{ producto.fecha_vencimiento|date:"d M Y" }}</p>
+            {% else %}
+                <p class="product-expiry">Sin fecha de vencimiento</p>
+            {% endif %}
+        </a>
+    </li>
+    {% empty %}
+    <li class="no-products">No hay productos registrados.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
